@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recensione Servizio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #feedback {
+            border: 2px solid #333;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #thanksMessage {
+            display: none;
+            color: green;
+        }
+
+        .star-container {
+            pointer-events: auto; /* Abilita eventi di puntatore */
+        }
+
+        .star {
+            font-size: 30px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .star:hover,
+        .star.checked {
+            color: gold;
+        }
+
+        .star-container.clicked {
+            pointer-events: none; /* Disabilita eventi di puntatore dopo il click */
+        }
+    </style>
+</head>
+<body>
+
+<div id="feedback">
+    <p>Metti la tua recensione per il servizio ricevuto</p>
+    
+    <div class="star-container" onclick="rateContainer(event)">
+        <span class="star" onclick="rate(1)">★</span>
+        <span class="star" onclick="rate(2)">★</span>
+        <span class="star" onclick="rate(3)">★</span>
+        <span class="star" onclick="rate(4)">★</span>
+        <span class="star" onclick="rate(5)">★</span>
+    </div>
+
+    <p id="thanksMessage">Grazie per averci dedicato il tuo tempo <span>&#10004;</span></p>
+</div>
+
+<script>
+    function rate(stars) {
+        // Reset all stars
+        document.querySelectorAll('.star').forEach(star => star.classList.remove('checked'));
+
+        // Highlight selected stars
+        for (let i = 0; i < stars; i++) {
+            document.querySelectorAll('.star')[i].classList.add('checked');
+        }
+
+        // Show thanks message
+        document.getElementById('thanksMessage').style.display = 'block';
+
+        // Disable star container after clicking
+        document.querySelector('.star-container').classList.add('clicked');
+    }
+
+    function rateContainer(event) {
+        // Check if the container has been clicked before allowing star rating
+        if (event.currentTarget.classList.contains('clicked')) {
+            window.alert("Hai già assegnato un voto. Non puoi cambiarlo.");
+        }
+    }
+</script>
+
+</body>
+</html>
